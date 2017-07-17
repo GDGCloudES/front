@@ -1,6 +1,14 @@
 {
-  "name": "polymer-starter-kit",
-  "license": "BSD-3-Clause",
+  "name": "gdgcloudmad.com",
+  "version": "0.1.0",
+  "description": "The GDGCloud Madrid official website",
+  "author": "Alberto Gutiérrez Juanes <aljesusg@gmail.com>",
+  "homepage": "https://gdgcloudmad.com",
+  "license": "MIT",
+  "repository": "GDGCloudES/front",
+  "bugs": {
+    "url": "https://github.com/GDGSpain/gdg.es/issues"
+  },
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.0",
@@ -8,8 +16,12 @@
   },
   "scripts": {
     "lint": "npm run lint:javascript",
-    "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
-    "test": "polymer test",
-    "test:integration": "polymer build # test that psk builds without error with the CLI"
-  }
+    "test:integration": "npm run build",
+    "build": "gulp build",
+    "build:production": "NODE_ENV=production gulp build"
+  },
+  "engines": {
+    "node": ">=6.0"
+  },
+  "private": true
 }
