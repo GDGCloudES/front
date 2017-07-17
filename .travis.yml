@@ -1,0 +1,38 @@
+language: node_js
+dist: trusty
+sudo: false
+node_js:
+- '6'
+cache: yarn
+branches:
+  except:
+  - "/^v\\d/"
+install:
+- yarn install
+- yarn global add bower
+- bower install
+script:
+- yarn run lint
+- yarn run test:integration
+before_deploy:
+- |
+  if [ "${TRAVIS_BRANCH}" = "develop" ]; then
+    yarn run build;
+  elif [ "${TRAVIS_BRANCH}" = "master" ]; then
+    yarn run build:production;
+  fi
+deploy:
+- provider: firebase
+  skip_cleanup: true
+  token:
+    secure: ANa3XdI/KJaIWcj91eQgIH6AesZP1gTnBFJvAZfzB2X0Nlu8q4ddYFUP4oaSsEuXEDjwyXDyIRpVbUNDDyPtqCL8JLNIWM7/NCd+N1OGg/JH0W69DVaRc9oo4NB6p0JGu9dxZJkFRmwJ37eYNhI43kyV77IreNleyK3CfDW4Pp8wrMoilovffvkXJ7yxF4ZCmooNoyurXutMwaoP36XfGvMgO/pqBVopPxfT1vSyYDFX3zLjsZviQ2AnbuMj/mdDOQA+Lzbhgh66jKyRZROArA3xc/Oltqkq78C/hgeI2FvcBuuapQlbPb9RCBLC49FRB8QZXQvH5reJWNFR2twdQkfChe5xmEX9mWBb+5e20lJDAxSllqlvdwwrJef4xpJrw+ixF/FWWs5YBmM6E7hX2RizNExBwlZWl/hVRl9jmrV3SlNDbiGoxX2CefOvJxNHHBZrYBSh1ItsXARNO3U9ecsBzlZgQ+/QkdK8BlGPTmYg7sAQrSfGLY464A3oT2W8bUlDknLMQbfdLkRGpfKOcHw14X78xKIYdyD5EKPnJfdlljMeTQFfFxtXVPb12HC3yZiuZNp8JUiJ8/St1yF60bb4KAaDio+SIotU2pVzPG/WesZ8hPTRscWeThtBNx3azyukCDjLvn2hhw7gtkw3IZDKBtN/p3xSNdPOb21cWNo=
+  project: gdgcloudmadrid-dev
+  on:
+    branch: develop
+- provider: firebase
+  skip_cleanup: true
+  token:
+    secure: ANa3XdI/KJaIWcj91eQgIH6AesZP1gTnBFJvAZfzB2X0Nlu8q4ddYFUP4oaSsEuXEDjwyXDyIRpVbUNDDyPtqCL8JLNIWM7/NCd+N1OGg/JH0W69DVaRc9oo4NB6p0JGu9dxZJkFRmwJ37eYNhI43kyV77IreNleyK3CfDW4Pp8wrMoilovffvkXJ7yxF4ZCmooNoyurXutMwaoP36XfGvMgO/pqBVopPxfT1vSyYDFX3zLjsZviQ2AnbuMj/mdDOQA+Lzbhgh66jKyRZROArA3xc/Oltqkq78C/hgeI2FvcBuuapQlbPb9RCBLC49FRB8QZXQvH5reJWNFR2twdQkfChe5xmEX9mWBb+5e20lJDAxSllqlvdwwrJef4xpJrw+ixF/FWWs5YBmM6E7hX2RizNExBwlZWl/hVRl9jmrV3SlNDbiGoxX2CefOvJxNHHBZrYBSh1ItsXARNO3U9ecsBzlZgQ+/QkdK8BlGPTmYg7sAQrSfGLY464A3oT2W8bUlDknLMQbfdLkRGpfKOcHw14X78xKIYdyD5EKPnJfdlljMeTQFfFxtXVPb12HC3yZiuZNp8JUiJ8/St1yF60bb4KAaDio+SIotU2pVzPG/WesZ8hPTRscWeThtBNx3azyukCDjLvn2hhw7gtkw3IZDKBtN/p3xSNdPOb21cWNo=
+  project: gdgcloudmadrid
+  on:
+    branch: master
