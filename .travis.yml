@@ -1,0 +1,36 @@
+language: node_js
+dist: trusty
+sudo: false
+node_js: stable
+addons:
+  firefox: latest
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+branches:
+  except:
+  - "/^v\\d/"
+before_script:
+  - npm install -g bower polymer-cli
+  - bower install
+cache: yarn
+script:
+  - xvfb-run npm test
+  - polymer build --js-minify --css-minify --html-minify
+deploy:
+- provider: firebase
+  skip_cleanup: true
+  token:
+    secure: BvM7ztTZ8uN36LJ/DnAVeCu0Sb73G01fv+Gstm16mPeY6IGJajKexvAcMF5PlAJPylu0U9jvvSy65ylX6Qtw5jBgdjbt9ND0KNPcBIn/S+kQR7YshrwaQg3o5pjbtBh2MXsKV9+yJ0ADOgpOnGV/1fVI/hLedwnb4KQFeeBSKVPmjlo3Ejs9GRqpIGz99Qwthj/U0Swh933cWtNMY0+uDqPry3nX9vaWiF0BQ2VwJEoMLVcRpSlNvUl/4IVE5iGeVR9rfruSypq2qIU3k11krbRz3+W6O5gvDuS7ZM291E5hPiTWEvMA57zRrt/BBfqQmC0fjcQ95MKR+NwixYsNXu/1hYZOvgQbyO4+OUjpPbvZt8TpjmxNG+a0oNb0BCSWVB37bFMVmuaFmEiuw8NAqalqg+wBQO3Zw0R062W9zHHrLaUiZIOaq6NXaLgPgOOR75GTw0mC2naFc42v1aLtx1ARBOvIKSInw6d+S2Uqk6YZ1QRCznHHv3evvS2hkM96Sn9I3U0dpJxetpsKgMwG9lBbx5KC/68SIth04pASuOw7h4Qq4XekwWtXrhIeLnK3y3Y9nOhM2Wg/gZf9ThLcYcGZ7xGN4XUBqcOWKKCXTzmo7cJVhDq/E0HUcSgxfPkKLX7DwlQXpVETxA9nYEb6kv4N8cck2Mwi43f8TS0ZG2s=
+  project: gdgcloudmadrid-dev
+  on:
+    branch: develop
+- provider: firebase
+  skip_cleanup: true
+  token:
+    secure: BvM7ztTZ8uN36LJ/DnAVeCu0Sb73G01fv+Gstm16mPeY6IGJajKexvAcMF5PlAJPylu0U9jvvSy65ylX6Qtw5jBgdjbt9ND0KNPcBIn/S+kQR7YshrwaQg3o5pjbtBh2MXsKV9+yJ0ADOgpOnGV/1fVI/hLedwnb4KQFeeBSKVPmjlo3Ejs9GRqpIGz99Qwthj/U0Swh933cWtNMY0+uDqPry3nX9vaWiF0BQ2VwJEoMLVcRpSlNvUl/4IVE5iGeVR9rfruSypq2qIU3k11krbRz3+W6O5gvDuS7ZM291E5hPiTWEvMA57zRrt/BBfqQmC0fjcQ95MKR+NwixYsNXu/1hYZOvgQbyO4+OUjpPbvZt8TpjmxNG+a0oNb0BCSWVB37bFMVmuaFmEiuw8NAqalqg+wBQO3Zw0R062W9zHHrLaUiZIOaq6NXaLgPgOOR75GTw0mC2naFc42v1aLtx1ARBOvIKSInw6d+S2Uqk6YZ1QRCznHHv3evvS2hkM96Sn9I3U0dpJxetpsKgMwG9lBbx5KC/68SIth04pASuOw7h4Qq4XekwWtXrhIeLnK3y3Y9nOhM2Wg/gZf9ThLcYcGZ7xGN4XUBqcOWKKCXTzmo7cJVhDq/E0HUcSgxfPkKLX7DwlQXpVETxA9nYEb6kv4N8cck2Mwi43f8TS0ZG2s=
+  project: gdgcloudmadrid-156320
+  on:
+    branch: master
